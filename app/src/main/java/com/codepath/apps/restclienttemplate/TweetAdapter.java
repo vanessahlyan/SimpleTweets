@@ -22,7 +22,6 @@ import org.parceler.Parcels;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
-
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
     private List<Tweet> mTweets;
@@ -103,7 +102,31 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvTimeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
 
             itemView.setOnClickListener(this);
+
+            /*
+            ivProfileImage.setOnClickListener(View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            */
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Tweet currentTweet = mTweets.get(position);
+                        Intent viewProfile = new Intent(context, ProfileActivity.class);
+                        viewProfile.putExtra("User", Parcels.wrap(currentTweet.getUser()));
+                        //viewProfile.putExtra("screen_name", currentTweet.getUser().getScreenName());
+                        context.startActivity(viewProfile);
+
+                    }
+                }
+            });
         }
+
 
 
         @Override
@@ -137,4 +160,3 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
 
 }
-

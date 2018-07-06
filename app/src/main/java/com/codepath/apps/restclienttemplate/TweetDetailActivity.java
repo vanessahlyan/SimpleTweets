@@ -40,7 +40,6 @@ public class TweetDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tweet_detail);
         ButterKnife.bind(this);
 
-
         currentTweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("currentTweet"));
         body.setText(currentTweet.getBody());
         username.setText("@" + currentTweet.getUser().screenName);
@@ -48,6 +47,23 @@ public class TweetDetailActivity extends AppCompatActivity {
         createdAt.setText(currentTweet.getCreatedAt());
 
         Glide.with(this).load(currentTweet.user.profileImageUrl).into(profileImage);
+
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchProfileActivity();
+
+            }
+        });
+
+    }
+
+    public void launchProfileActivity() {
+        Intent i = new Intent(this, ProfileActivity.class);
+        i.putExtra("User", Parcels.wrap(currentTweet.getUser()));
+        //i.putExtra("screen_name", currentTweet.getUser().getScreenName());
+        startActivity(i);
     }
 
     public void onStartRetweet(View view) {
@@ -136,6 +152,11 @@ public class TweetDetailActivity extends AppCompatActivity {
     }
 
 
+
+
 }
+
+
+
 
 
