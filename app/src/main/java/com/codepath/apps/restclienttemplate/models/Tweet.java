@@ -11,6 +11,11 @@ public class Tweet {
     public long uid; // data base ID for the tweet
     public String createdAt;
     public String timeStamp;
+    /*
+    public JSONObject entitiesObject;
+    public JSONArray mediaArray;
+    public JSONObject mediaObject;
+    */
 
     public Tweet() {}
 
@@ -25,6 +30,18 @@ public class Tweet {
         tweet.uid = jsonObject.getLong("id");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+
+        /*
+        tweet.entitiesObject = jsonObject.getJSONObject("entities");
+
+        if (tweet.entitiesObject != null && tweet.entitiesObject.has("media")) {
+            tweet.mediaArray = tweet.getEntitiesObject().getJSONArray("media");
+
+            if (tweet.mediaArray != null && tweet.mediaArray.size() > 0) {
+                tweet.mediaObject = tweet.mediaArray.getJSONObject(0);
+            }
+        }
+        */
 
         return tweet;
     }
@@ -48,4 +65,14 @@ public class Tweet {
     public User getUser() {
         return user;
     }
+
+    /*
+    public JSONObject getEntitiesObject() {
+        return entitiesObject;
+    }
+
+    public JSONArray getMediaArray() {
+        return mediaArray;
+    }
+    */
 }

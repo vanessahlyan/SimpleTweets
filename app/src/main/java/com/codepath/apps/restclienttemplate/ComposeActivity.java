@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,17 +26,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class ComposeActivity extends AppCompatActivity {
     TwitterClient client;
-    //EditText etNewTweet;
     Tweet newTweet;
-    //TextView tvCharCount;
-    //ProgressBar pb;
 
     @BindView(R.id.etnewTweet) EditText etNewTweet;
-    //etNewTweet = (EditText) findViewById(R.id.etnewTweet);
     @BindView(R.id.tvCharCount) TextView tvCharCount;
-    //tvCharCount = (TextView) findViewById(R.id.tvCharCount);
     @BindView(R.id.pbLoading) ProgressBar pb;
-    //pb = (ProgressBar) findViewById(R.id.pbLoading);
+
 
 
     @Override
@@ -46,13 +42,9 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
         ButterKnife.bind(this);
 
-
         getSupportActionBar().setTitle("Compose Tweet");
 
 
-
-
-        // if pass back not null
         Tweet originalTweet;
         originalTweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("currentTweet"));
         if (originalTweet != null) {
@@ -63,11 +55,11 @@ public class ComposeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_compose, menu);
+        getMenuInflater().inflate(R.menu.menu_compose, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    /*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
@@ -79,7 +71,7 @@ public class ComposeActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    */
+
 
     private void closeCompose() {
         Intent data = new Intent();

@@ -32,17 +32,6 @@
         android:text="Name of User"
         android:textStyle="bold" />
 
-
-    <ImageButton
-        android:id="@+id/btnFavoriteSelector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignTop="@id/btnRetweet"
-        android:layout_toEndOf="@id/btnRetweet"
-        android:background="@drawable/favorite_selector" />
-
     <TextView
         android:id="@+id/tvFollowingCount"
         android:layout_width="wrap_content"

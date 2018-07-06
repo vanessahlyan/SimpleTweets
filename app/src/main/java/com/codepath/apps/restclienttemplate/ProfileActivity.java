@@ -2,8 +2,10 @@ package com.codepath.apps.restclienttemplate;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.User;
 
 import org.parceler.Parcels;
@@ -16,7 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
     TwitterClient client;
     User currentUser;
 
-    //@BindView(R.id.ivProfileImage) ImageView profileImage;
+    @BindView(R.id.ivProfileImage) ImageView profileImage;
     @BindView(R.id.tvName) TextView name;
     @BindView(R.id.tvUsername) TextView username;
     @BindView(R.id.tvFollowingCount) TextView followingCount;
@@ -38,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
         followingCount.setText(Integer.toString(currentUser.getFollowingCount()) + " Following");
         followerCount.setText(Integer.toString(currentUser.getFollowersCount()) + " Followers");
 
-
+        Glide.with(this).load(currentUser.profileImageUrl).into(profileImage);
 
 
     }
