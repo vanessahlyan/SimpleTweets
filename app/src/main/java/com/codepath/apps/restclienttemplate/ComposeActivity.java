@@ -18,29 +18,48 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 
 public class ComposeActivity extends AppCompatActivity {
     TwitterClient client;
-    EditText etNewTweet;
+    //EditText etNewTweet;
     Tweet newTweet;
-    TextView tvCharCount;
-    ProgressBar pb;
+    //TextView tvCharCount;
+    //ProgressBar pb;
+
+    @BindView(R.id.etnewTweet) EditText etNewTweet;
+    //etNewTweet = (EditText) findViewById(R.id.etnewTweet);
+    @BindView(R.id.tvCharCount) TextView tvCharCount;
+    //tvCharCount = (TextView) findViewById(R.id.tvCharCount);
+    @BindView(R.id.pbLoading) ProgressBar pb;
+    //pb = (ProgressBar) findViewById(R.id.pbLoading);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
         client = TwitterApp.getRestClient(this);
+        setContentView(R.layout.activity_compose);
+        ButterKnife.bind(this);
+
+
         getSupportActionBar().setTitle("Compose Tweet");
 
-        etNewTweet = (EditText) findViewById(R.id.etnewTweet);
-        tvCharCount = (TextView) findViewById(R.id.tvCharCount);
-        pb = (ProgressBar) findViewById(R.id.pbLoading);
-    }
 
+
+
+        // if pass back not null
+        Tweet originalTweet;
+        originalTweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("currentTweet"));
+        if (originalTweet != null) {
+            etNewTweet.setText("@" + originalTweet.getUser().screenName);
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,10 +89,8 @@ public class ComposeActivity extends AppCompatActivity {
 
 
     // implement onKeyUp function
-    //Button bPost = (Button) findViewById(R.id.btnCompose);
-    //bPost.setOnClickListener
 
-    public void onPostItem(View view) {
+    public void onPostStatusUpdate(View view) {
         pb.setVisibility(ProgressBar.VISIBLE);
         client.sendTweet(etNewTweet.getText().toString(), new JsonHttpResponseHandler() {
 
@@ -88,6 +105,7 @@ public class ComposeActivity extends AppCompatActivity {
                     pb.setVisibility(ProgressBar.INVISIBLE);
                     // Activity finished ok, return the data
                     finish();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -115,3 +133,11 @@ public class ComposeActivity extends AppCompatActivity {
 
     }
 }
+
+
+
+
+
+
+
+

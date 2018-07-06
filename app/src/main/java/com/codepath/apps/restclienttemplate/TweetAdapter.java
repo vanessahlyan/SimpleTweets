@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.util.List;
@@ -48,9 +51,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         // get the data according to position
         Tweet tweet = mTweets.get(position);
         // populate the views according to this data
-        holder.tvUsername.setText(tweet.user.name);
+        holder.tvName.setText(tweet.user.name);
+        holder.tvScreenName.setText("@" + tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
-        holder.tvTimeStamp.setText("\u2022" + getRelativeTimeAgo(tweet.createdAt));
+        holder.tvTimeStamp.setText("\u2022" + " " + getRelativeTimeAgo(tweet.createdAt));
 
         Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
     }
@@ -80,22 +84,43 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     }
 
     // create ViewHolder class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView ivProfileImage;
-        public TextView tvUsername;
+        public TextView tvName;
+        public TextView tvScreenName;
         public TextView tvBody;
         public TextView tvTimeStamp;
+        //Context context;
 
-        public ViewHolder (View itemView) {
+        public ViewHolder (@NonNull View itemView) {
             super(itemView);
 
             // perform findViewById lookups
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
-            tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
+            tvName = (TextView) itemView.findViewById(R.id.tvName);
+            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvTimeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
+
+            itemView.setOnClickListener(this);
         }
 
+
+        @Override
+        public void onClick(View v) {
+            // gets item position
+            int position = getAdapterPosition();
+            // make sure the position is valid, i.e. actually exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+                // get the tweet at the position, this won't work if the class is static
+                Tweet currentTweet = mTweets.get(position);
+                // create intent for the new activity
+                Intent i = new Intent(context, TweetDetailActivity.class);
+                i.putExtra("currentTweet", Parcels.wrap(currentTweet));
+                // show the activity
+                context.startActivity(i);
+            }
+        }
     }
 
     // clear all elements of the recycler
@@ -109,4 +134,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         mTweets.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }
+

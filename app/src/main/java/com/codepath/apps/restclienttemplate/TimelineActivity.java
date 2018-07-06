@@ -188,11 +188,6 @@ public class TimelineActivity extends AppCompatActivity {
             case R.id.miCompose:
                 composeMessage();
                 return true;
-
-            case R.id.miProfile:
-                //showProfileView();
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

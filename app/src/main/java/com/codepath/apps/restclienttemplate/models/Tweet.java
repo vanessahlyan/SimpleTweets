@@ -28,4 +28,24 @@ public class Tweet {
 
         return tweet;
     }
+
+    public String getBody() {
+        return body;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

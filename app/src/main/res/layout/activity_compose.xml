@@ -3,27 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ComposeActivity">
 
-    <EditText
-        android:id="@+id/etnewTweet"
+    <android.support.design.widget.TextInputLayout
+        android:id = "@+id/textContainer"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:hint="What's happening?"
-        android:inputType="textMultiLine"
-        android:maxLength="280"/>
+        app:counterEnabled="true"
+        app:counterMaxLength="140" >
+
+        <EditText
+            android:id="@+id/etnewTweet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:hint="What's happening?"
+            android:inputType="textMultiLine"
+            android:maxLength="280"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
 
     <Button
-        android:id="@+id/btnCompose"
+        android:id="@+id/btnPostStatusUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="#1DA1F2"
-        android:onClick="onPostItem"
+        android:onClick="onPostStatusUpdate"
         android:text="Tweet"
         android:textColor="@android:color/white" />
 
@@ -35,7 +48,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/btnCompose"
+        android:layout_toLeftOf="@id/btnPostStatusUpdate"
         android:text="280" />
 
     <ProgressBar
