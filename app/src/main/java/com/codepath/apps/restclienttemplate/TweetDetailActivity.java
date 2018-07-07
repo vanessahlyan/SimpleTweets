@@ -32,6 +32,7 @@ public class TweetDetailActivity extends AppCompatActivity {
     @BindView(R.id.tvName) TextView name;
     @BindView(R.id.tvCreatedAt) TextView createdAt;
     @BindView(R.id.ivProfileImage) ImageView profileImage;
+    @BindView(R.id.ivMedia) ImageView media;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,6 @@ public class TweetDetailActivity extends AppCompatActivity {
         createdAt.setText(currentTweet.getCreatedAt());
 
         Glide.with(this).load(currentTweet.user.profileImageUrl).into(profileImage);
-
-
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +55,7 @@ public class TweetDetailActivity extends AppCompatActivity {
 
             }
         });
+        Glide.with(this).load(currentTweet.mediaLink).into(media);
 
     }
 

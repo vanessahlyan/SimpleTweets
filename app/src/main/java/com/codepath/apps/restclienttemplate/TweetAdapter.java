@@ -56,6 +56,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvTimeStamp.setText("\u2022" + " " + getRelativeTimeAgo(tweet.createdAt));
 
         Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
+        if (tweet.mediaLink != null) {
+            Glide.with(context).load(tweet.mediaLink).into(holder.ivMedia);
+        }
     }
 
     @Override
@@ -82,14 +85,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         return relativeDate;
     }
 
-    // create ViewHolder class
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView ivProfileImage;
         public TextView tvName;
         public TextView tvScreenName;
         public TextView tvBody;
         public TextView tvTimeStamp;
-        //Context context;
+        public ImageView ivMedia;
 
         public ViewHolder (@NonNull View itemView) {
             super(itemView);
@@ -100,17 +103,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvTimeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
+            ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
 
             itemView.setOnClickListener(this);
 
-            /*
-            ivProfileImage.setOnClickListener(View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
-            */
             ivProfileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,7 +116,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                         Tweet currentTweet = mTweets.get(position);
                         Intent viewProfile = new Intent(context, ProfileActivity.class);
                         viewProfile.putExtra("User", Parcels.wrap(currentTweet.getUser()));
-                        //viewProfile.putExtra("screen_name", currentTweet.getUser().getScreenName());
                         context.startActivity(viewProfile);
 
                     }

@@ -55,12 +55,20 @@
         android:text="Time of Creation" />
 
 
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCreatedAt"
+        app:srcCompat="@android:color/background_dark" />
+
+
     <ImageButton
         android:id="@+id/btnRetweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvCreatedAt"
+        android:layout_below="@id/ivMedia"
+        android:layout_marginTop="0dp"
         android:onClick="onStartRetweet"
         app:srcCompat="@drawable/ic_vector_retweet" />
 
@@ -71,7 +79,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_alignTop="@id/btnRetweet"
+        android:layout_toRightOf="@id/btnRetweet"
         android:layout_toEndOf="@id/btnRetweet"
         android:background="@drawable/favorite_selector" />
+
 
 </RelativeLayout>
